@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <report
+            id="action_report_payslip"
+            model="hr.payslip"
+            string="Altex Payslip"
+            report_type="qweb-pdf"
+            name="hr_altex.altex_report_payslip"
+            file="hr_altex.altex_report_payslip"
+        />
+
+    </data>
+</openerp>
