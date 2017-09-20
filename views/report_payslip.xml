@@ -1,95 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-<data>
-<template id="altex_report_payslip">
-    <t t-call="report.html_container">
-        <t t-foreach="docs" t-as="o">
-            <t t-call="report.external_layout">
+    <data>
+    	<template id="altex_report_payslip">
+			<t t-call="report.html_container">
                 <div class="page">
-                    <h2>BULLETIN DE PAIE</h2>
-                    <p t-field="o.name"/>
-                    <table class="table table-condensed table-bordered">
-                        <tr>
-                            <td><strong>NOM</strong></td>
-                            <td><span t-field="o.employee_id"/></td>
-                            <td><strong>EMPLOI</strong></td>
-                            <td><span t-field="o.employee_id.job_id"/></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Address</strong></td>
-                            <td colspan="3">
-                                <div t-field="o.employee_id.address_home_id"
-                                    t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": true, "phone_icons": true}'/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Email</strong></td>
-                            <td><span t-field="o.employee_id.work_email"/></td>
-                            <td><strong>Identification No</strong></td>
-                            <td><span t-field="o.employee_id.identification_id"/></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Reference</strong></td>
-                            <td><span t-field="o.number"/></td>
-                            <td><strong>N° de sécurité sociale</strong></td>
-                            <td><span t-field="o.employee_id.bank_account_id"/></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Date de</strong></td>
-                            <td><span t-field="o.date_from"/></td>
-                            <td><strong>Date a</strong></td>
-                            <td><span t-field="o.date_to"/></td>
-                        </tr>
-                    </table>
+                        <div class="row">
+                            <div class="col-xs-3" >
+                                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="height: 100px; width:200"/>
+                            </div>
+                            <h3 class="col-sm-4"><i>BULLETIN DE PAIE</i></h3>
+                        </div>
+                        <t t-foreach="docs" t-as="o">
+                            <table class="table table-condensed table-bordered" width="100%">
+                                <tr>
+                                <td colspan="2"></td>
+                                <td colspan="2"><strong>Buelltin de paie</strong></td>
+                                <td rowspan="2"><img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="height: 50px; width:100"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan=""><strong>NOM</strong></td>
+                                    <td><span t-field="o.employee_id"/></td>
+                                    <td> <p t-field="o.name"/> </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>N° de Sécurité Sociale</strong></td>
+                                    <td><strong>Affectation</strong></td>
+                                    <td colspan="3">EMPLOI</td>
+                                </tr>
+                                <tr>
+                                    <td><span t-field="o.employee_id.bank_account_id"/></td>
+                                    <td><strong>project</strong></td>
+                                    <td colspan="3"><span t-field="o.employee_id.job_id"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>DATE ENTREE</strong></td>
+                                    <td><strong>SIT FAM</strong></td>
+                                    <td><strong>N° de societe</strong></td>
+                                    <td><strong>N° de employé</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><span t-field="o.contract_id.date_start"/></td>
+                                    <td><span t-field="o.employee_id.marital"/></td>
+                                    <td><span t-field="company.phone"/></td>
+                                    <td><span t-field="o.number"/></td>
+                                </tr>
+                            </table>
 
-                    <table class="table table-condensed">
-                        <thead>
-                            <tr>
-                                <th>Code</th>
-                                <th>Name</th>
-                                <th>Quantity/rate</th>
-                                <th>Amount</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr t-foreach="get_payslip_lines(o.line_ids)" t-as="p"></tr>
-                            <td>
-                                    <span t-esc="p.code or ''"/>
-                            </td>
+                            <table class="table table-condensed table-bordered" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">ELEMENTS DE REMUNERATIONS</th>
+                                        <th>BASE MONTAN</th>
+                                        <th>TAUX/NBRE</th>
+                                        <th>VERSEMENTS</th>
+                                        <th>RETENUES</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                        </tbody>
-                        <tr>
-                            <td>Base S.S</td>
-                            <td></td>
-                            <td>Retenue S.S</td>
-                            <td></td>
-                            <td rowspan="2" >NET A PAYER</td>
-                            <td rowspan="2"></td>
-                        </tr>
-                        <tr>
-                            <td>Base IRG</td>
-                            <td></td>
-                            <td>Retenue IRG</td>
-                            <td></td>
+                                    <tr t-foreach="get_payslip_lines(o.line_ids)" t-as="p">
+                                      <t t-if="p.salary_rule_id.id not in [89,90,91,92,3]">
+                                        <td colspan="2"> <span t-field="p.name"/> </td>
+                                        <td><span t-esc="formatLang(p.amount)"/></td>
+                                        <td><span t-field="p.quantity"/></td>
+                                        <td><span t-esc="formatLang(p.total)"/></td>
+                                        <td></td>
+                                      </t>
+                                    </tr>
 
-                        </tr>
-                    </table>
+                                    <tr>
+                                      <t t-foreach="get_payslip_lines(o.line_ids)" t-as="p" >
+                                          <t t-if="p.salary_rule_id.id in [89]">
+                                            <td><span t-field="p.name"/></td>
+                                            <td><span t-esc="formatLang(p.amount)"/></td>
+                                          </t>
+                                      </t>
 
-                    <p class="text-right"><strong>Authorized signature</strong></p>
+                                      <t t-foreach="get_payslip_lines(o.line_ids)" t-as="p" >
+                                          <t t-if="p.salary_rule_id.id in [92]">
+                                            <td><span t-field="p.name"/></td>
+                                            <td><span t-esc="formatLang(p.amount)"/></td>
+                                          </t>
+                                      </t>
 
-                    <table class="table table-signature"  style="border:1px solid black;width:100%" >
-                        <tr>
-                            <td style="text-align:left;padding: 20px;border:1px solid black"><strong>Gérant Altex:
-                                <p>kaddour Guettaoui</p>
-                                <p>Alger le <span t-field="o.date_d"/></p>
-                            </strong></td>
-                        </tr>
-                    </table>
+                                       <t t-foreach="get_payslip_lines(o.line_ids)" t-as="p" >
+                                          <t t-if="p.salary_rule_id.id in [3]">
+                                            <td rowspan="2"><span t-field="p.name"/></td>
+                                            <td rowspan="2"><span t-esc="formatLang(p.amount)"/></td>
+                                          </t>
+                                        </t>
+                                    </tr>
+
+                                    <tr>
+                                       <t t-foreach="get_payslip_lines(o.line_ids)" t-as="p">
+                                           <t t-if="p.salary_rule_id.id in [90]">
+                                             <td><span t-field="p.name"/></td>
+                                             <td><span t-esc="formatLang(p.amount)"/></td>
+                                           </t>
+                                       </t>
+
+                                        <t t-foreach="get_payslip_lines(o.line_ids)" t-as="p">
+                                            <t t-if="p.salary_rule_id.id in [91]">
+                                              <td><span t-field="p.name"/></td>
+                                              <td><span t-esc="formatLang(p.amount)"/></td>
+                                           </t>
+                                       </t>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <p class="text-right"><strong>Authorized signature</strong></p>
+
+                            <table class="table table-signature"  style="border:1px solid black;width:100%" >
+                                <tr>
+                                    <td style="text-align:left;padding: 20px;border:1px solid black"><strong>Gérant Altex:
+                                        <p>kaddour Guettaoui</p>
+                                        <p>Alger le <span t-field="o.date_today"/></p>
+                                    </strong></td>
+                                </tr>
+                            </table>
+                        </t>
                 </div>
             </t>
-        </t>
-    </t>
-</template>
-</data>
+        </template>
+    </data>
 </openerp>

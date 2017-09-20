@@ -8,6 +8,7 @@
 'depends' : ['base','hr_payroll'],
 'data' : ['views/hr_payroll_altex_report.xml',
           'views/report_payslip.xml',
+          'views/altex_payroll.xml',
          ],
 }
 
