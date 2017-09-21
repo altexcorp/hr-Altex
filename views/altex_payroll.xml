@@ -2,19 +2,36 @@
 <openerp>
     <data>
 
+        <!--
         <record id="hr_contract_form_altex_payroll" model="ir.ui.view">
             <field name="name">hr.contract.form.altex.payroll</field>
             <field name="model">hr.contract</field>
             <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
             <field name="arch" type="xml">
 
+
                 <field name="wage" position="after">
 					<field name="bonus"/>
 					<field name="transport"/>
 				</field>
 
+
             </field>
         </record>
+        -->
 
+        <record id="hr_payslip_form_altex_payroll" model="ir.ui.view">
+            <field name="name">hr.payslip.form.altex.payroll</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <group>
+                    <field name="prim_sud"/>
+                    <field name="prim_rendement"/>
+                    <field name="nombre_jour"/>
+                    <field name="frais_remboursables"/>
+                </group>
+            </field>
+        </record>
     </data>
 </openerp>
