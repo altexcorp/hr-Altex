@@ -31,6 +31,11 @@
                     <field name="nombre_jour"/>
                     <field name="frais_remboursables"/>
                 </group>
+
+                <field name="frais_remboursables" position="after">
+					<field name="date_today"/>
+				</field>
+
             </field>
         </record>
     </data>

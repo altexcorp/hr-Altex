@@ -25,11 +25,11 @@
                                 <tr>
                                     <td><strong>N° de Sécurité Sociale</strong></td>
                                     <td><strong>Affectation</strong></td>
-                                    <td colspan="3">EMPLOI</td>
+                                    <td colspan="3"><strong>EMPLOI</strong></td>
                                 </tr>
                                 <tr>
                                     <td><span t-field="o.employee_id.bank_account_id"/></td>
-                                    <td><strong>project</strong></td>
+                                    <td>project</td>
                                     <td colspan="3"><span t-field="o.employee_id.job_id"/></td>
                                 </tr>
                                 <tr>
@@ -41,7 +41,7 @@
                                 <tr>
                                     <td><span t-field="o.contract_id.date_start"/></td>
                                     <td><span t-field="o.employee_id.marital"/></td>
-                                    <td><span t-field="company.phone"/></td>
+                                    <td><span t-field="company.company_registry"/></td>
                                     <td><span t-field="o.number"/></td>
                                 </tr>
                             </table>
@@ -59,7 +59,7 @@
                                 <tbody>
 
                                     <tr t-foreach="get_payslip_lines(o.line_ids)" t-as="p">
-                                      <t t-if="p.salary_rule_id.id not in [89,90,91,92,3]">
+                                      <t t-if="p.name not in ['Base S.S','Base IRG','Retenue IRG','Retenue S.S','NET A PAYER']">
                                         <td colspan="2"> <span t-field="p.name"/> </td>
                                         <td><span t-esc="formatLang(p.amount)"/></td>
                                         <td><span t-field="p.quantity"/></td>
@@ -70,22 +70,22 @@
 
                                     <tr>
                                       <t t-foreach="get_payslip_lines(o.line_ids)" t-as="p" >
-                                          <t t-if="p.salary_rule_id.id in [89]">
+                                          <t t-if="p.name in ['Base S.S']">
                                             <td><span t-field="p.name"/></td>
                                             <td><span t-esc="formatLang(p.amount)"/></td>
                                           </t>
                                       </t>
 
                                       <t t-foreach="get_payslip_lines(o.line_ids)" t-as="p" >
-                                          <t t-if="p.salary_rule_id.id in [92]">
+                                          <t t-if="p.name in ['Retenue S.S']">
                                             <td><span t-field="p.name"/></td>
                                             <td><span t-esc="formatLang(p.amount)"/></td>
                                           </t>
                                       </t>
 
                                        <t t-foreach="get_payslip_lines(o.line_ids)" t-as="p" >
-                                          <t t-if="p.salary_rule_id.id in [3]">
-                                            <td rowspan="2"><span t-field="p.name"/></td>
+                                          <t t-if="p.name in ['NET A PAYER']">
+                                            <td rowspan="2"><center><span t-field="p.name"/></center></td>
                                             <td rowspan="2"><span t-esc="formatLang(p.amount)"/></td>
                                           </t>
                                         </t>
@@ -93,14 +93,14 @@
 
                                     <tr>
                                        <t t-foreach="get_payslip_lines(o.line_ids)" t-as="p">
-                                           <t t-if="p.salary_rule_id.id in [90]">
+                                           <t t-if="p.name in ['Base IRG']">
                                              <td><span t-field="p.name"/></td>
                                              <td><span t-esc="formatLang(p.amount)"/></td>
                                            </t>
                                        </t>
 
                                         <t t-foreach="get_payslip_lines(o.line_ids)" t-as="p">
-                                            <t t-if="p.salary_rule_id.id in [91]">
+                                            <t t-if="p.name in ['Retenue IRG']">
                                               <td><span t-field="p.name"/></td>
                                               <td><span t-esc="formatLang(p.amount)"/></td>
                                            </t>

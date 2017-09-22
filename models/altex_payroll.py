@@ -12,7 +12,7 @@ class Hr_Contract(models.Model):
 class Hr_Payslip(models.Model):
 
     _inherit = 'hr.payslip'
-    date_today = fields.Date('Date D',default=fields.Datetime.now)
+    date_today = fields.Date('Date de Buelltin',default=fields.Datetime.now)
     #contract_id = fields.Many2one('hr.contract', 'Contract to payslip')
     #transfer_now = fields.Many2one('hr.payslip.line','Transfer Now')
     prim_sud = fields.Float(string='Prime de Sud' ,default=0.0)
