@@ -19,3 +19,4 @@ class Hr_Payslip(models.Model):
     frais_remboursables = fields.Float(string='Frais Remboursables' ,default=0.0)
     prim_rendement = fields.Float(string='Prime de Rendement' ,default=0.0)
     nombre_jour = fields.Integer(string='Nombre de Jour' ,default=0.0)
+    indemnite_panier = fields.Float(string='Indemnite Panier' ,default=0.0)

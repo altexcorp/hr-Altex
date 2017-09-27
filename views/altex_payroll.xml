@@ -30,9 +30,10 @@
                     <field name="prim_rendement"/>
                     <field name="nombre_jour"/>
                     <field name="frais_remboursables"/>
+                    <field name="indemnite_panier"/>
                 </group>
 
-                <field name="frais_remboursables" position="after">
+                <field name="indemnite_panier" position="after">
 					<field name="date_today"/>
 				</field>
 
