@@ -3,7 +3,7 @@
     <data>
     	<template id="altex_report_payslip">
 			<t t-call="report.html_container">
-                <div class="page" style="background-image: url('/hr_altex/static/description/image.jpg');background-repeat: no-repeat;background-position: center;">
+                <div class="page" style="background-image: url('/hr_altex/static/description/image.jpg');background-repeat: no-repeat;background-position: center center;">
                         <div class="row">
                             <div class="col-xs-3" >
                                 <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="height: 100px; width:200"/>
@@ -28,7 +28,7 @@
                                     <td colspan="3"><strong>EMPLOI</strong></td>
                                 </tr>
                                 <tr>
-                                    <td><span t-field="o.employee_id.bank_account_id"/></td>
+                                    <td><span t-field="o.employee_id.securite_sociale"/></td>
                                     <td>project</td>
                                     <td colspan="3"><span t-field="o.employee_id.job_id"/></td>
                                 </tr>
@@ -146,6 +146,7 @@
                         </ul>
                     </div>
                 </div>
+
             </t>
         </template>
     </data>

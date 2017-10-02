@@ -20,3 +20,8 @@ class Hr_Payslip(models.Model):
     prim_rendement = fields.Float(string='Prime de Rendement' ,default=0.0)
     nombre_jour = fields.Integer(string='Nombre de Jour' ,default=0.0)
     indemnite_panier = fields.Float(string='Indemnite Panier' ,default=0.0)
+
+class Hr_Employee(models.Model):
+
+    _inherit = 'hr.employee'
+    securite_sociale = fields.Char(string='N de securite sociele')

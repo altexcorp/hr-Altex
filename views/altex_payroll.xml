@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
         <!--
         <record id="hr_contract_form_altex_payroll" model="ir.ui.view">
             <field name="name">hr.contract.form.altex.payroll</field>
@@ -19,6 +18,18 @@
             </field>
         </record>
         -->
+        <record id="hr_employee_form_altex_payroll" model="ir.ui.view">
+            <field name="name">hr.employee.form.altex.payroll</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+
+                <field name="bank_account_id" position="after">
+					<field name="securite_sociale"/>
+				</field>
+
+            </field>
+        </record>
 
         <record id="hr_payslip_form_altex_payroll" model="ir.ui.view">
             <field name="name">hr.payslip.form.altex.payroll</field>
@@ -36,7 +47,6 @@
                 <field name="indemnite_panier" position="after">
 					<field name="date_today"/>
 				</field>
-
             </field>
         </record>
     </data>
